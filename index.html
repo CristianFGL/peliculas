@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="pelis">
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Ticket Amarillo</title>
+  <link rel="icon" type="image/png" href="tickett.png">
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="./js/angular/angular.min.js" charset="utf-8"></script>
+  <script src="./js/angular/angular-resource.min.js" charset="utf-8"></script>
+  <script src="./js/angular/FirstController.js" charset="utf-8"></script>
+
+</head>
+<body ng-controller="FirstController" style="background-color: black">
+  <div class="navbar-fixed">
+    <nav class="yellow accent-3" role="navigation">
+      <div class="nav-wrapper container black-text"><img src="tickett.png" style="height: 60px; width: 110px">
+        <ul class="right hide-on-med-and-down">
+          <i class="large material-icons right">list_headline</i>
+          <!--<li><a href="#">Navbar Link</a></li>-->
+        </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <i class="large material-icons">list_headline</i>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center yellow-text accent-3"><img src="tickett.png" style="height: 100px; width: 200px"></h1>
+      <h1 class="header center yellow-text accent-3"><img src="pel.png" style="height: 70px; width: 300px"></h1>
+    </div>
+  </div>
+
+
+  <div ng-controller="MoviesController" class="container">
+    <div class="section">
+    
+      <div class="row">
+        <div  ng-repeat="movie in movies">
+            
+          <div class="col s12 m4">
+            <div class="card" style="height: 570px;">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4"><h6>{{movie.original_title}}</h6><i class="material-icons right">more_vert</i></span>
+                <!--<p><a href="#">Comentar</a></p>-->
+                
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><h5>{{movie.original_title}}</h5><i class="material-icons right">close</i></span>
+                  {{ movie.overview }}
+                  <!--<div class="card-action">
+                    <a href="#">Comentar</a>
+                  </div>-->
+              </div>
+              <!--<div class="card-action">
+                    <a href="#">Comentar</a>
+              </div>-->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+  <footer ng-controller="FirstController" class="page-footer yellow accent-3">
+  <form name="comentarios">
+    <div class="container">
+      <div class="row">
+        <div class="col m12 s12">
+          <h5 class="black-text">Comentarios</h5>
+          
+            
+           <div class="col m12 s12">
+            <div ng-repeat="elemento in arreglo"> <!-- repeat- for-->
+              
+              <div class="footer-copyright black-text">
+                <div class="container">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input type="text" class="validate" readonly="" value="{{elemento.post}}">
+                  <div class=" col m4">
+                    <i ng-click="count=count+1" ng-init="count=0" class="material-icons prefix">thumb_up</i><span class="new blue badge" data-badge-caption="Gusta">     {{count}}</span>
+                  </div>
+                  <div class=" col m4">
+                    <i ng-click="counts=counts+1" ng-init="counts=0" class="material-icons prefix">thumb_down</i><span class="new red badge " data-badge-caption="Disgusta">     {{counts}}</span>
+                  </div>
+                  <div class=" col m4">
+                    <img src="en.png" style="height: 27px;width: 27px" ng-click="coun=coun+1" ng-init="coun=0" class="material-icons prefix"><span class="new black badge " data-badge-caption="Enloquece">     {{coun}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+            <div class="input-field col s12">
+              <i class="material-icons prefix">account_circle</i>
+              <input pattern="[a-zA-Z]{1,10}" ng-model="nombre" type="text" class="validate" data-length="10"  name="usuario"  required>
+              <label for="first_name">Nombre o apodo</label>
+            </div>
+           
+            <div class="input-field col s12">
+              <i class="material-icons prefix">comment</i>
+              <input name="com" pattern=".{1,45}" ng-model="comentario" type="text" required class="validate" data-length="45">
+              <label for="comentar">Comentario</label><!--{{count}}-->
+
+            </div><br>
+            <i ng-show="comentarios.$invalid" class="material-icons prefix">info_outline</i>
+            <span ng-show="comentarios.$invalid">LLene todos los campos</span>
+            <span ng-show="comentarios.usuario.$error.pattern">: El nombre no puede llevar caracteres especiales, números ni más de 10 caracteres de longitud</span>
+            <span ng-show="comentarios.com.$error.pattern">: El comentario no puede contener más de 45 caracteres</span>
+
+        </div>
+       
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container black-text">
+      <a ng-disabled="comentarios.$invalid" class="btn btn-floating btn-medium black pulse" ng-click="ver()"><i class="material-icons prefix">input</i></a> Publicar comentario 
+      </div> 
+    </div>
+    </form>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
+
+              <!--<input min="0" max="190" ng-model="post" ng-keypress="count=count-1" ng-init="count=190" type="text" class="validate" placeholder="" required="">{{count}}-->
